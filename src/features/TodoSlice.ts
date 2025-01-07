@@ -6,7 +6,7 @@ interface Todo{
     text:string,
     isComplete:boolean,
 }
-interface TodosInial{
+export interface TodosInial{
     todos:Todo[]
 }
 const initialState:TodosInial = {

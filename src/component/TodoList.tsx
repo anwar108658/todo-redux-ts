@@ -1,16 +1,20 @@
 import { Delete, Edit, Save} from '@mui/icons-material'
-import { Box, Checkbox, Container, IconButton, Stack, TextField } from '@mui/material'
+import { Box, Checkbox, IconButton, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import {checkTodo,updateTodo,deleteTodo,localStorageTodo} from "../features/TodoSlice"
+import {checkTodo,updateTodo,deleteTodo,localStorageTodo,TodosInial} from "../features/TodoSlice"
 import {useDispatch,useSelector} from "react-redux"
 
 const TodoList:React.FC = () => {
-  const todos = useSelector(state => state.todos)
+  const todos = useSelector((state:TodosInial) => state.todos)
   const [update,setUpdate] = useState<string>("");
   const [isEditable,setIsEditable] = useState<boolean|null|string>(false);
   const dispatch = useDispatch();
+  interface Todo {
+    id: string;
+    text: string;
+  }
   useEffect(() => {
-    const toDo = JSON.parse(localStorage.getItem("todo"));
+    const toDo = JSON.parse(localStorage.getItem("todo")||"[]");
     if (toDo.length > 0 && toDo) {
       dispatch(localStorageTodo(toDo))
     }
@@ -20,7 +24,7 @@ const TodoList:React.FC = () => {
   }, [todos])
   
   
-  const editHandler = (todo) => {
+  const editHandler = (todo:Todo) => {
     if (isEditable === todo.id) {
       dispatch(updateTodo({id:todo.id,text:update}))
       setIsEditable(null)
