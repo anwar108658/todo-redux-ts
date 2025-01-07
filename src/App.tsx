@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material"
 import TodoForm from "./component/TodoForm"
 import TodoList from "./component/TodoList"
 import {useSelector} from "react-redux"
-import { Padding, TodayOutlined } from "@mui/icons-material"
+import {TodayOutlined } from "@mui/icons-material"
 function App() {
   const data = useSelector(store => store)
   return (
